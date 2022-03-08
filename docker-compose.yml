@@ -1,0 +1,10 @@
+services:
+  gobi:
+    build: .
+    command: watch --interval 10
+    image: containers.lib.berkeley.edu/lap/gobi/development:latest
+    init: yes
+    volumes:
+      - ./:/opt/app:rw
+
+version: "3.8"

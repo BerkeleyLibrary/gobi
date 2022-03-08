@@ -1,0 +1,19 @@
+# Convoluted gitkeep setting to keep the data directory
+# structure intact without tracking its contents.
+data/*
+!data/.keep
+!data/gobi_processed
+data/gobi_processed/*
+!data/gobi_processed/.keep
+!data/incoming
+data/incoming/*
+!data/incoming/.keep
+!data/incoming/processed
+data/incoming/processed/*
+!data/incoming/processed/.keep
+
+vendor
+.bundle
+
+secrets/*
+!secrets/.keep

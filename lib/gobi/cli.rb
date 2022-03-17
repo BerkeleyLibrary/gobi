@@ -1,7 +1,7 @@
 require 'gobi'
 require 'thor'
 
-module GOBI 
+module GOBI
   class CLI < Thor
     def self.exit_on_failure?
       true
@@ -30,7 +30,7 @@ module GOBI
     end
 
     desc 'refresh', 'Deletes processed files and reseeds from fixtures'
-    def refresh 
+    def refresh
       GOBI.refresh!
     end
   end

@@ -2,14 +2,13 @@ require 'logger'
 
 module Logging
   class << self
+    attr_writer :logger
+
     def logger
       $stdout.sync = true
       @logger ||= Logger.new($stdout)
     end
 
-    def logger=(logger)
-      @logger = logger
-    end
   end
 
   # Addition
@@ -25,4 +24,3 @@ module Logging
     Logging.logger
   end
 end
-

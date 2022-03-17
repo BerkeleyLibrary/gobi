@@ -1,6 +1,7 @@
 #!/usr/bin/env ruby
 
-locallib = File.expand_path('../../lib', __FILE__)
+# locallib = File.expand_path('../../lib', __FILE__)
+locallib = File.expand_path('../lib', __dir__)
 $LOAD_PATH.unshift(locallib) unless $LOAD_PATH.include?(locallib)
 
 require 'gobi/cli'

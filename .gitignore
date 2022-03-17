@@ -15,5 +15,9 @@ data/incoming/processed/*
 vendor
 .bundle
 
+.DS_Store
+
+testfiles/*
+
 secrets/*
 !secrets/.keep

@@ -34,12 +34,10 @@ module GOBI
   def self.process_dir(pattern, interval)
     loop do
       Dir.glob(pattern) do |filepath|
-        begin
-          logger.info "Processing file: #{filepath}"
-          process!(filepath)
-        rescue StandardError => e
-          logger.info "Error processing #{filepath}: #{e}"
-        end
+        logger.info "Processing file: #{filepath}"
+        process!(filepath)
+      rescue StandardError => e
+        logger.info "Error processing #{filepath}: #{e}"
       end
 
       logger.info "... pausing #{interval}s before checking for new files"

@@ -1,7 +1,7 @@
 services:
   gobi:
     build: . 
-#    command: watch --interval 600 
+    command: watch --interval 600 
     image: containers.lib.berkeley.edu/lap/gobi/development:latest
     init: yes
     volumes:

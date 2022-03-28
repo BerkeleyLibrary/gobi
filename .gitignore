@@ -15,6 +15,9 @@ data/incoming/processed/*
 # Build/test artifacts
 /artifacts/
 
+/log/*
+!/log/.keep
+
 vendor
 .bundle
 

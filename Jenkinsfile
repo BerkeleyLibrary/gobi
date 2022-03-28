@@ -2,7 +2,6 @@ dockerComposePipeline(
   commands: [
     [
       'rubocop',
-      'brakeman',
       'rspec'
     ],
   ],
@@ -10,7 +9,6 @@ dockerComposePipeline(
     junit   : 'artifacts/rspec/**/*.xml',
     html    : [
       'RuboCop'      : 'artifacts/rubocop',
-      'Brakeman'     : 'artifacts/brakeman',
     ],
   ]
 )

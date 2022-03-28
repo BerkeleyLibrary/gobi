@@ -1,7 +1,6 @@
 source 'https://rubygems.org'
 
 gem 'aruba'
-gem 'brakeman'
 gem 'date'
 gem 'mail'
 gem 'marc'

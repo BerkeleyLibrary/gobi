@@ -12,6 +12,9 @@ data/incoming/*
 data/incoming/processed/*
 !data/incoming/processed/.keep
 
+# Build/test artifacts
+/artifacts/
+
 vendor
 .bundle
 

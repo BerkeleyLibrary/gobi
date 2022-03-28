@@ -7,9 +7,9 @@ dockerComposePipeline(
   ],
   artifacts: [
     junit   : 'artifacts/rspec/*.xml',
-#    html    : [
-#      'RuboCop'      : 'artifacts/rubocop',
-#    ],
+//    html    : [
+//      'RuboCop'      : 'artifacts/rubocop',
+//    ],
   ]
 )
 

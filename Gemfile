@@ -9,4 +9,5 @@ gem 'rake'
 gem 'rspec'
 gem 'rspec_junit_formatter'
 gem 'rubocop', require: false
+gem 'rubocop-checkstyle_formatter', require: false
 gem 'thor', '~> 1.1'

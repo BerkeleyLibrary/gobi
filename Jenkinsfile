@@ -1,5 +1,4 @@
 dockerComposePipeline(
-  stack: [template: 'postgres-selenium'],
   commands: [
     [
       'rubocop',

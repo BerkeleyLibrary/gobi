@@ -7,5 +7,6 @@ gem 'marc'
 gem 'nokogiri'
 gem 'rake'
 gem 'rspec'
+gem 'rspec_junit_formatter'
 gem 'rubocop', require: false
 gem 'thor', '~> 1.1'

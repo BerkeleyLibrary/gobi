@@ -5,7 +5,9 @@ dockerComposePipeline(
       'rspec'
     ],
   ],
-  archiveArtifacts artifacts: 'build/**/*.log', allowEmptyArchive: true
+  archiveArtifacts: [
+    artifacts: 'build/**/*.log', allowEmptyArchive: true,
+  ],
   artifacts: [
     junit   : 'artifacts/rspec/*.xml',
     html    : [

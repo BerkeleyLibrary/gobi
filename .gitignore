@@ -12,6 +12,17 @@ data/incoming/*
 data/incoming/processed/*
 !data/incoming/processed/.keep
 
+# Build/test artifacts
+artifacts/*
+!/artifacts/.keep
+!artifacts/rspec
+!artifacts/rubocop
+artifacts/rubocop/*
+!/artifacts/rubocop/.keep
+
+/log/*
+!/log/.keep
+
 vendor
 .bundle
 

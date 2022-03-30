@@ -19,4 +19,4 @@ COPY --chown=alma . .
 
 USER alma
 ENTRYPOINT ["/opt/app/bin/gobi"]
-CMD ["help"]
+#CMD ["help"]

@@ -1,11 +1,13 @@
 source 'https://rubygems.org'
 
+gem 'aruba'
 gem 'date'
-gem 'nokogiri'
 gem 'mail'
 gem 'marc'
+gem 'nokogiri'
 gem 'rake'
-gem 'rubocop', require: false
-gem 'thor', '~> 1.1'
 gem 'rspec'
-gem 'aruba'
+gem 'rspec_junit_formatter'
+gem 'rubocop', require: false
+gem 'rubocop-checkstyle_formatter', require: false
+gem 'thor', '~> 1.1'

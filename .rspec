@@ -1,0 +1,4 @@
+--format progress
+--format RspecJunitFormatter
+--out artifacts/rspec/specs.xml
+

@@ -18,5 +18,5 @@ RUN bundle install --system
 COPY --chown=alma . .
 
 USER alma
-#ENTRYPOINT ["/opt/app/bin/gobi"]
+ENTRYPOINT ["/opt/app/bin/gobi"]
 #CMD ["help"]

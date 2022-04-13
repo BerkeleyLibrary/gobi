@@ -30,7 +30,7 @@ module GOBI
 
     desc 'watch', 'Monitor a directory for new GOBI marc order files to process .'
     method_option :directory, desc: 'The directory to watch for new files', aliases: '-d', default: @directory
-    method_option :interval, desc: 'Seconds to sleep between scanning for new files', aliases: '-i', default: @interval ||= 120, type: :numeric
+    method_option :interval, desc: 'Seconds to sleep between scanning for new files', aliases: '-i', default: @interval ||= 1200, type: :numeric
     method_option :outdir, desc: 'The output directory for process Gobi files', aliases: '-o', default: @out_dir
     method_option :donedir, desc: 'The output directory for raw Gobi file to be move to after processing', aliases: '-d', default: @done_dir
 

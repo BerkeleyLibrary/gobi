@@ -25,7 +25,7 @@ describe GOBI do
 
   it 'splits order record file into multiple provider order record files' do
     GOBI.refresh!
-    GOBI.process!(incoming_file)
+    GOBI.process!(incoming_file, nil, nil)
     expect(Pathname.new(processed_DEG_file)).to exist
     expect(Pathname.new(processed_EBS_file)).to exist
     expect(Pathname.new(processed_incoming_file)).to exist

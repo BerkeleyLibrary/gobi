@@ -7,25 +7,31 @@ module GOBI
   include Logging
 
   DATA_DIR = File.expand_path(File.join(__dir__, '../data'))
-  FIXTURES_DIR = File.expand_path(File.join(__dir__, '../spec/fixtures'))
-  OUT_DIR = File.join(DATA_DIR, 'gobi_processed')
-  INCOMING_DIR = File.join(DATA_DIR, 'incoming')
-  PROCESSED = File.join(DATA_DIR, 'incoming/processed')
   PROVIDER_PATH = File.expand_path(File.join(__dir__, '../config'))
-  DEFAULT_INPUT_DIR = File.join(DATA_DIR, 'incoming')
+  FIXTURES_DIR = File.expand_path(File.join(__dir__, '../spec/fixtures'))
+  @out_dir = File.join(DATA_DIR, 'gobi_processed')
+  @processed = File.join(DATA_DIR, 'incoming/processed')
+  @input_dir = File.join(DATA_DIR, 'incoming')
 
   # get 3 letter Gobi providers
   @gobi_providers = YAML.load_file(File.join(PROVIDER_PATH, 'gobi_providers.yml'))
-  def self.watch!(directory = nil, interval: 120)
-    directory ||= DEFAULT_INPUT_DIR
-    raise ArgumentError, "Watch directory '#{directory}' is not a directory or symlink to a directory" \
-      unless File.directory?(directory) || \
-        (File.symlink?(directory) && File.directory?(File.readlink(directory)))
+
+  def self.set_dirs(directory = nil, outdir = nil, processed = nil)
+    @input_dir = directory unless directory.nil?
+    @out_dir = outdir unless outdir.nil?
+    @processed = processed unless processed.nil?
+  end
+
+  def self.watch!(directory = nil, outdir = nil, processed = nil, interval: 120)
+    set_dirs(directory, outdir, processed)
+    raise ArgumentError, "Watch directory '#{@input_dir}' is not a directory or symlink to a directory" \
+      unless File.directory?(@input_dir) || \
+        (File.symlink?(@input_dir) && File.directory?(File.readlink(@input_dir)))
 
     raise ArgumentError, 'interval must be a positive integer' \
       unless interval > 0 && interval.to_i == interval
 
-    pattern = File.expand_path(File.join(directory, '*.ord'))
+    pattern = File.expand_path(File.join(@input_dir, '*.ord'))
     logger.info "GOBI: Watching #{pattern} for updates"
 
     process_dir(pattern, interval)
@@ -35,7 +41,7 @@ module GOBI
     loop do
       Dir.glob(pattern) do |filepath|
         logger.info "Processing file: #{filepath}"
-        process!(filepath)
+        process!(filepath, @out_dir, @processed)
       rescue StandardError => e
         logger.info "Error processing #{filepath}: #{e}"
       end
@@ -48,7 +54,7 @@ module GOBI
   # Copies fixtures files into the default data directory
   def self.seed!
     Dir.glob("#{FIXTURES_DIR}/*.ord") do |filepath|
-      FileUtils.cp(filepath, File.join(DEFAULT_INPUT_DIR, File.basename(filepath)))
+      FileUtils.cp(filepath, File.join(@input_dir, File.basename(filepath)))
     end
   end
 
@@ -94,8 +100,8 @@ module GOBI
               end
 
     logger.info "GOBI: Opening filehandle for #{outfile}"
-    # fh = File.open(File.join(OUT_DIR, outfile), 'a')
-    File.open(File.join(OUT_DIR, outfile), 'a')
+    # fh = File.open(File.join(@out_dir, outfile), 'a')
+    File.open(File.join(@out_dir, outfile), 'a')
   end
 
   def self.move_file(from, to)
@@ -103,7 +109,8 @@ module GOBI
     logger.info "GOBI: moved #{from} to #{to}"
   end
 
-  def self.process!(fname)
+  def self.process!(fname, outdir, processed)
+    set_dirs(nil, outdir, processed)
     logger.info "GOBI: Going to process #{fname}"
     reader = MARC::Reader.new(fname, external_encoding: 'UTF-8')
 
@@ -115,7 +122,7 @@ module GOBI
 
     logger.info "GOBI: Finished processing #{fname}"
 
-    move_file(fname, File.join(PROCESSED, File.basename(fname)))
+    move_file(fname, File.join(@processed, File.basename(fname)))
   end
 
 end

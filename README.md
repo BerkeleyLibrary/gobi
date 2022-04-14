@@ -7,7 +7,7 @@ A command-line tool for processing GOBI order marc files (.ord). Input files can
 docker-compose build
 ```
 
-## Running it
+## Running it locally
 
 View the CLI tool help/description:
 
@@ -45,4 +45,18 @@ Process a specific file:
 ```sh
 docker-compose run --rm gobi process /abs/path/to/myfile.ord # absolute path
 docker-compose run --rm gobi process data/incoming/somefile.ord # relative path
+```
+
+## Running it in production
+
+Monitor a directory for incoming Gobi files and process them. If no options are given it will use the default directories used locally
+
+```sh
+docker run --rm gobi watch --out_dir '/path_to_processed_gobi_directory_for_Alma' --input_dir '/path_to_incoming_gobi_files' --done_dir '/path_where_raw_Gobi_file_goes_after_processing'
+```
+
+Run against a single Gobi file. If out_dir and done_dir options are missing it will use the default directories used locally
+
+```sh
+docker run -rm gobi process 'path_to_gobi_file' --out_dir 'path_to_processed_gobi_directory_for_Alma' --done_dir '/path_where_raw_Gobi_file_goes_after_processing'
 ```

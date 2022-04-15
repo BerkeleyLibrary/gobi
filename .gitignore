@@ -14,11 +14,6 @@ data/incoming/processed/*
 
 # Build/test artifacts
 artifacts/*
-!/artifacts/.keep
-!artifacts/rspec
-!artifacts/rubocop
-artifacts/rubocop/*
-!/artifacts/rubocop/.keep
 
 /log/*
 !/log/.keep

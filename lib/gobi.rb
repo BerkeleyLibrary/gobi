@@ -82,7 +82,6 @@ module GOBI
 
   # Gobi provider code is the first 3 characters in the 961 $d
   def self.get_provider(rec)
-    logger.info 'GOBI: Getting provider'
     return unless rec['961'] && rec['961']['d']
 
     provider = rec['961']['d'][0, 3]
@@ -93,15 +92,8 @@ module GOBI
   # output filehandle will be have the provider code or will be blank if the provider
   # 961 $d is blank or not defined in gobi_providers
   def self.get_output_filehandle(fname, provider)
-    outfile = if @gobi_providers.include?(provider)
-                fname.gsub('ebook', "ebook#{provider}")
-              else
-                fname.gsub('ebook', 'ebookZZZ')
-              end
-
-    logger.info "GOBI: Opening filehandle for #{outfile}"
-    # fh = File.open(File.join(@out_dir, outfile), 'a')
-    File.open(File.join(@out_dir, outfile), 'a')
+    outfile = get_output_filename(provider, fname)
+    File.open(outfile, 'a')
   end
 
   def self.move_file(from, to)
@@ -109,20 +101,44 @@ module GOBI
     logger.info "GOBI: moved #{from} to #{to}"
   end
 
+  def self.get_output_filename(provider, fname)
+    file = if @gobi_providers.include?(provider)
+             fname.gsub('ebook', "ebook#{provider}")
+           else
+             fname.gsub('ebook', 'ebookZZZ')
+           end
+
+    "#{@out_dir}/#{File.basename(file)}"
+  end
+
+  def self.new_file?(provider, fname)
+    file = get_output_filename(provider, fname)
+    outputfile = "#{@out_dir}/#{File.basename(file)}"
+    return true unless File.exist?(outputfile)
+  end
+
+  # Rubocop warnings due to logging statements. disabling
+  # rubocop:disable Metrics/MethodLength
+  # rubocop:disable Metrics/AbcSize
   def self.process!(fname, outdir, processed)
     set_dirs(nil, outdir, processed)
+    providers = {}
     logger.info "GOBI: Going to process #{fname}"
     reader = MARC::Reader.new(fname, external_encoding: 'UTF-8')
-
     reader.each do |record|
       provider = get_provider(record)
-      outfile = get_output_filehandle(File.basename(fname), provider)
-      write_marc(record, outfile)
+      providers.key?(provider) || providers[provider] = new_file?(provider, fname)
+
+      if providers[provider]
+        outfile = get_output_filehandle(File.basename(fname), provider)
+        write_marc(record, outfile)
+      end
     end
 
     logger.info "GOBI: Finished processing #{fname}"
-
     move_file(fname, File.join(@processed, File.basename(fname)))
   end
+  # rubocop:enable Metrics/MethodLength
+  # rubocop:enable Metrics/AbcSize
 
 end

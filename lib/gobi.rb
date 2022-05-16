@@ -1,6 +1,7 @@
 require 'marc'
 require 'yaml'
 require 'fileutils'
+require 'date'
 require_relative 'logging'
 
 module GOBI
@@ -103,9 +104,9 @@ module GOBI
 
   def self.get_output_filename(provider, fname)
     file = if @gobi_providers.include?(provider)
-             fname.gsub('ebook', "ebook#{provider}")
+             fname.gsub('ebook', "ebook#{provider}#{Date.today.year}")
            else
-             fname.gsub('ebook', 'ebookZZZ')
+             fname.gsub('ebook', "ebookZZZ#{Date.today.year}")
            end
 
     "#{@out_dir}/#{File.basename(file)}"

@@ -47,7 +47,6 @@ module GOBI
         logger.info "Error processing #{filepath}: #{e}"
       end
 
-      logger.info "... pausing #{interval}s before checking for new files"
       sleep interval
     end
   end
@@ -128,9 +127,7 @@ module GOBI
     reader = MARC::Reader.new(fname, external_encoding: 'UTF-8')
     reader.each do |record|
       provider = get_provider(record)
-      unless @gobi_providers.include?(provider)
-        provider = "ZZZ"
-      end
+      provider = 'ZZZ' unless @gobi_providers.include?(provider)
       providers.key?(provider) || providers[provider] = new_file?(provider, fname)
       if providers[provider]
         outfile = get_output_filehandle(File.basename(fname), provider)

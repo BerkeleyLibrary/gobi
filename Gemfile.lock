@@ -8,7 +8,7 @@ GEM
       cucumber (>= 4.0, < 8.0)
       rspec-expectations (~> 3.4)
       thor (~> 1.0)
-    ast (2.4.2)
+    ast (2.4.3)
     builder (3.2.4)
     childprocess (4.1.0)
     contracts (0.17)
@@ -59,13 +59,15 @@ GEM
     multi_test (0.1.2)
     nokogiri (1.13.3-x86_64-linux)
       racc (~> 1.4)
-    parallel (1.22.1)
-    parser (3.1.2.0)
+    parallel (1.27.0)
+    parser (3.3.10.0)
       ast (~> 2.4.1)
+      racc
+    prism (1.6.0)
     racc (1.6.0)
     rainbow (3.1.1)
     rake (13.0.6)
-    regexp_parser (2.3.0)
+    regexp_parser (2.11.3)
     rexml (3.2.5)
     rspec (3.11.0)
       rspec-core (~> 3.11.0)
@@ -82,7 +84,7 @@ GEM
     rspec-support (3.11.0)
     rspec_junit_formatter (0.5.1)
       rspec-core (>= 2, < 4, != 2.12.0)
-    rubocop (1.27.0)
+    rubocop (1.26.1)
       parallel (~> 1.10)
       parser (>= 3.1.0.0)
       rainbow (>= 2.2.2, < 4.0)
@@ -91,11 +93,12 @@ GEM
       rubocop-ast (>= 1.16.0, < 2.0)
       ruby-progressbar (~> 1.7)
       unicode-display_width (>= 1.4.0, < 3.0)
-    rubocop-ast (1.17.0)
-      parser (>= 3.1.1.0)
+    rubocop-ast (1.48.0)
+      parser (>= 3.3.7.2)
+      prism (~> 1.4)
     rubocop-checkstyle_formatter (0.5.0)
       rubocop (>= 1.14.0)
-    ruby-progressbar (1.11.0)
+    ruby-progressbar (1.13.0)
     scrub_rb (1.0.1)
     sys-uname (1.2.2)
       ffi (~> 1.1)
@@ -103,9 +106,10 @@ GEM
     unf (0.1.4)
       unf_ext
     unf_ext (0.0.8)
-    unicode-display_width (2.1.0)
+    unicode-display_width (2.6.0)
 
 PLATFORMS
+  aarch64-linux
   x86_64-linux
 
 DEPENDENCIES
@@ -118,7 +122,7 @@ DEPENDENCIES
   rake
   rspec
   rspec_junit_formatter
-  rubocop
+  rubocop (~> 1.26.0)
   rubocop-checkstyle_formatter
   thor (~> 1.1)
 

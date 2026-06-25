@@ -26,7 +26,7 @@ module GOBI
   def self.watch!(directory = nil, outdir = nil, processed = nil, interval: 120)
     set_dirs(directory, outdir, processed)
     raise ArgumentError, "Watch directory '#{@input_dir}' is not a directory or symlink to a directory" \
-      unless File.directory?(@input_dir) || \
+      unless File.directory?(@input_dir) ||
         (File.symlink?(@input_dir) && File.directory?(File.readlink(@input_dir)))
 
     raise ArgumentError, 'interval must be a positive integer' \
@@ -114,7 +114,7 @@ module GOBI
   def self.new_file?(provider, fname)
     file = get_output_filename(provider, fname)
     outputfile = "#{@out_dir}/#{File.basename(file)}"
-    return true unless File.exist?(outputfile)
+    true unless File.exist?(outputfile)
   end
 
   # Rubocop warnings due to logging statements. disabling

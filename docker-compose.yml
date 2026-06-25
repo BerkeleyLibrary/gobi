@@ -2,8 +2,6 @@ services:
   app:
     build: . 
     command: watch --interval 600 
-    init: yes
+    init: true
     volumes:
       - ./:/opt/app:rw
-
-version: "3.8"

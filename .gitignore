@@ -27,3 +27,5 @@ testfiles/*
 
 secrets/*
 !secrets/.keep
+
+.cache

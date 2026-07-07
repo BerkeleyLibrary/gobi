@@ -1,12 +1,12 @@
 #FROM debian:bullseye-slim
-FROM ruby:3.3-slim AS base
+FROM ruby:3.4-slim AS base
 USER root
 
 RUN apt-get update 
 
 # Create the application user/group and application directory
 RUN groupadd -g 40054 alma && \
-    useradd -r -s /sbin/nologin -M -u 40054 -g alma alma && \
+    useradd -r -s /sbin/nologin -M -u 40054 -g alma -d /opt/app alma && \
     mkdir -p /opt/app && \
     chown -R alma:alma /opt/app 
 
@@ -24,7 +24,7 @@ RUN apt-get install -y --no-install-recommends \
 
 USER alma
 
-RUN gem install bundler --version 4.0.9
+RUN gem install bundler --version 4.0.15
 COPY --chown=alma:alma Gemfile* ./
 RUN bundle install
 COPY --chown=alma:alma . .

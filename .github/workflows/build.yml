@@ -44,6 +44,11 @@ jobs:
         run: |
           docker compose exec -e RAILS_ENV=test app rspec --format progress --format html --out artifacts/rspec.html
 
+      - name: Run Rubocop
+        if: ${{ always() }}
+        run: |
+          docker compose exec app rubocop --format progress --format html --out artifacts/rubocop.html
+
       - name: Copy out artifacts
         if: ${{ always() }}
         run: |

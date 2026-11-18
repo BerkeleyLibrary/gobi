@@ -1,4 +1,7 @@
 # GOBI Processor
+
+**Note**: This tool has been decommissioned with the addition of the `process_gobi_orders` Dag in [Mokelumne](https://github.com/BerkeleyLibrary/mokelumne).
+
 A command-line tool for processing GOBI order marc files (.ord). Input files can be mounted anywhere on the filesystem, but by default the program looks at `./data/incoming/*.ord`. Output files are written to `./data/gobi_processed`. original input file are moved to `./data/incoming/processed` after being processed.
 
 ## Building the app
